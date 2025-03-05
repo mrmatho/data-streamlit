@@ -9,7 +9,6 @@ st.set_page_config(
     layout="wide"
 )
 
-
 # Load the meteorites dataset
 meteorites = pd.read_csv("meteorites.csv")
 
@@ -33,23 +32,25 @@ left_col, right_col = st.columns(2)
 
 with left_col:
     # Have the user select a year range
-    st.subheader("Select a Year Range")
-    year_range = st.slider(
-        "Year Range",
-        min_value=int(meteorites["year"].min()),
-        max_value=int(meteorites["year"].max()),
-        value=(int(meteorites["year"].min()), int(meteorites["year"].max()))
+    st.subheader("Filter by Year")
+    min_year = st.number_input(
+        "Minimum Year", min_value=int(meteorites["year"].min()),
+        max_value=int(meteorites["year"].max()), value=int(meteorites["year"].min())
+    )
+    max_year = st.number_input(
+        "Maximum Year", min_value=int(meteorites["year"].min()),
+        max_value=int(meteorites["year"].max()), value=int(meteorites["year"].max())
     )
     # This is just for you 
-    st.write(year_range)
-
+    st.write(min_year, max_year)
+    # Filter the dataframe based on the year range
     meteorites = meteorites[
-        (meteorites["year"] >= year_range[0]) & (meteorites["year"] <= year_range[1])
+        (meteorites["year"] >= min_year) & (meteorites["year"] <= max_year)
     ]
 
     # Plot the Scatterplot
     st.header("Meteorites Scatterplot")
-    st.scatter_chart(meteorites, x="reclong", y="reclat", size="year", height=700)
+    st.scatter_chart(meteorites, x="reclong", y="reclat", color="year", height=700)
 
 with right_col:
     # Plot the Map
@@ -96,14 +97,17 @@ with col1:
     st.subheader("Fall")
     fig = px.bar(meteorites, x="fall")
     st.plotly_chart(fig, use_container_width=True)
-    
+    st.write("Bar chart using Plotly")
     # And using Streamlit default bar chart
     st.bar_chart(meteorites["fall"].value_counts())
-
+    st.write("Bar chart using Streamlit default bar chart")
+    
 with col2:
     st.subheader("Class")
     fig = px.bar(meteorites, x="recclass", color="fall")
     st.plotly_chart(fig, use_container_width=True)
-    
+    st.write("Bar chart using Plotly")
     st.bar_chart(meteorites["recclass"].value_counts())
+    st.write("Bar chart using Streamlit default bar chart")
+
 
