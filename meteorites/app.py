@@ -26,7 +26,7 @@ st.title("Meteorites")
 st.write(
     "This is a simple Streamlit app that shows the landing position of meteorites. The data is loaded from a CSV file and plotted as a scatterplot (using latitude) and a map."
 )
-st.write("King, E. & NASA. (2014). *Meteorite landings* [Dataset]. Kaggle. https://www.kaggle.com/datasets/nasa/meteorite-landings")
+st.write("**Source:** King, E. & NASA. (2014). *Meteorite landings* [Dataset]. Kaggle. https://www.kaggle.com/datasets/nasa/meteorite-landings")
 
 left_col, right_col = st.columns(2)
 
