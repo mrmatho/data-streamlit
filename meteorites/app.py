@@ -109,5 +109,3 @@ with col2:
     st.write("Bar chart using Plotly")
     st.bar_chart(meteorites["recclass"].value_counts())
     st.write("Bar chart using Streamlit default bar chart")
-
-
