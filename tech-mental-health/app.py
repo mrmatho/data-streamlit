@@ -33,3 +33,9 @@ for col in numerical_cols:
     st.subheader(f"Distribution of {col}")
     fig = px.histogram(df, x=col, title=f"Distribution of {col}")
     st.plotly_chart(fig, use_container_width=True)
+
+# Correlation heatmap
+st.header("Correlation Heatmap")
+correlation_matrix = df.corr()
+fig = px.imshow(correlation_matrix, text_auto=True, title="Correlation Heatmap")
+st.plotly_chart(fig, use_container_width=True)
