@@ -20,6 +20,8 @@ def create_chart():
     # create and add data to Chart
     data = Data()
     df = pd.read_csv("./sets.csv")
+    df = df[df["num_parts"] > 100]
+    df = df[df['year'] > 2000]
     data.add_df(df)
     st.dataframe(df)
  
@@ -28,11 +30,11 @@ def create_chart():
     # add config to Chart
  
     chart.animate(
-        Config(
+        Config.stackedBubble(
             {
-                "x": "theme_id",
-                "y": "num_parts",
-                "title": "Lego Sets"
+                "size": "num_parts",
+                "title": "Lego Sets",
+                "stackedBy": "year"
             }
         )
     )
