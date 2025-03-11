@@ -109,3 +109,34 @@ with col2:
     st.write("Bar chart using Plotly")
     st.bar_chart(meteorites["recclass"].value_counts())
     st.write("Bar chart using Streamlit default bar chart")
+
+# Add Animated Scatterplot using Plotly
+st.header("Animated Scatterplot")
+
+# Data needs to be ordered
+meteorites.sort_values(by=["year"], inplace=True)
+# Create a scatter plot with animation
+fig = px.scatter(
+    meteorites,
+    x="reclong",
+    y="reclat",
+    animation_frame="year",
+    animation_group="name",
+    color="mass",
+    hover_name="name",
+    
+    title="Meteorite Landings Over Time",
+    range_x=[-180, 180],
+    range_y=[-90, 90],
+)
+fig.update_traces(marker=dict(size=20))
+
+# Update layout
+fig.update_layout(
+    xaxis_title="Longitude",
+    yaxis_title="Latitude",
+    showlegend=True,
+    height=700
+)
+# Display the animated scatter plot
+st.plotly_chart(fig, use_container_width=True)
