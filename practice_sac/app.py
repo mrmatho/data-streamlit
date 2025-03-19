@@ -47,6 +47,8 @@ st.markdown("**Select a country** to view the completion rate over time.")
 countries = df["Country"].unique()
 countries = sorted(list(countries))
 selected_country = st.selectbox("Country", countries, index=None)
+
+# Only display the chart if a country is selected
 if selected_country:
     col4, col5 = st.columns([0.3, 0.7])
     filtered_df = df[df["Country"] == selected_country].sort_values("Year", ascending=False)
